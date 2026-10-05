@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grand Agency — Expert Grant Writing Services</title>
+  <meta name="description" content="Grand Agency is a premier grant writing firm helping nonprofits, startups, and organizations secure transformative funding. Expert grant writers. Proven results." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8C97A;
+      --gold-dark: #9A7A30;
+      --dark: #0A0A0F;
+      --dark2: #111118;
+      --dark3: #1A1A24;
+      --dark4: #22222F;
+      --text: #E8E8F0;
+      --text-muted: #8888A0;
+      --white: #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 60px;
+      height: 80px;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      transition: all 0.3s;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--white); }
+    .nav-links { display: flex; gap: 40px; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: #000;
+      padding: 10px 28px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+      box-shadow: 0 4px 20px rgba(201,168,76,0.3);
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,168,76,0.5); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 40px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 80%, rgba(201,168,76,0.06) 0%, transparent 60%),
+        linear-gradient(180deg, var(--dark) 0%, var(--dark2) 100%);
+    }
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 900px; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 100px;
+      padding: 8px 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 32px;
+      animation: fadeUp 0.8s ease both;
+    }
+    .hero-badge::before { content: '●'; font-size: 0.5rem; }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 28px;
+      animation: fadeUp 0.8s ease 0.1s both;
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 620px;
+      margin: 0 auto 48px;
+      font-weight: 300;
+      animation: fadeUp 0.8s ease 0.2s both;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeUp 0.8s ease 0.3s both;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: #000;
+      padding: 16px 36px;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: all 0.3s;
+      box-shadow: 0 6px 30px rgba(201,168,76,0.4);
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(201,168,76,0.6); }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      color: var(--text);
+      padding: 16px 36px;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: all 0.3s;
+    }
+    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-3px); }
+    .hero-stats {
+      display: flex;
+      gap: 60px;
+      justify-content: center;
+      margin-top: 80px;
+      padding-top: 60px;
+      border-top: 1px solid rgba(201,168,76,0.15);
+      animation: fadeUp 0.8s ease 0.4s both;
+      flex-wrap: wrap;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--gold);
+      display: block;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 8px;
+      display: block;
+    }
+
+    /* ── SECTION BASE ── */
+    section { padding: 120px 60px; }
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 560px;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    /* ── SERVICES ── */
+    #services { background: var(--dark2); }
+    .services-header { text-align: center; margin-bottom: 80px; }
+    .services-header .section-sub { margin: 0 auto; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .service-card {
+      background: var(--dark3);
+      border: 1px solid rgba(201,168,76,0.1);
+      border-radius: 12px;
+      padding: 40px 36px;
+      transition: all 0.4s;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .service-card:hover { transform: translateY(-8px); border-color: rgba(201,168,76,0.3); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+    .service-card:hover::before { opacity: 1; }
+    .service-icon {
+      font-size: 2.5rem;
+      margin-bottom: 24px;
+      display: block;
+    }
+    .service-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .service-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* ── PROCESS ── */
+    #process { background: var(--dark); }
+    .process-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+    .process-steps { display: flex; flex-direction: column; gap: 0; }
+    .process-step {
+      display: flex;
+      gap: 28px;
+      padding: 32px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .process-step:last-child { border-bottom: none; }
+    .process-step:hover .step-num { color: var(--gold); }
+    .step-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: rgba(201,168,76,0.25);
+      min-width: 48px;
+      line-height: 1;
+      transition: color 0.3s;
+    }
+    .step-body h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .step-body p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+    .process-visual {
+      background: var(--dark3);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 16px;
+      padding: 50px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .process-visual::after {
+      content: '';
+      position: absolute;
+      inset: -50%;
+      background: radial-gradient(ellipse at center, rgba(201,168,76,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .process-visual .big-icon { font-size: 6rem; display: block; margin-bottom: 24px; }
+    .process-visual h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+      color: var(--gold);
+    }
+    .process-visual p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+    .success-rate {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 8px;
+      padding: 16px 24px;
+      margin-top: 28px;
+    }
+    .success-rate .rate { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--gold); }
+    .success-rate .rate-label { font-size: 0.85rem; color: var(--text-muted); text-align: left; line-height: 1.4; }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials { background: var(--dark2); }
+    .testimonials-header { text-align: center; margin-bottom: 80px; }
+    .testimonials-header .section-sub { margin: 0 auto; }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .testimonial-card {
+      background: var(--dark3);
+      border: 1px solid rgba(201,168,76,0.1);
+      border-radius: 12px;
+      padding: 40px 36px;
+      transition: all 0.3s;
+    }
+    .testimonial-card:hover { border-color: rgba(201,168,76,0.25); transform: translateY(-4px); }
+    .stars { color: var(--gold); font-size: 1rem; margin-bottom: 20px; letter-spacing: 2px; }
+    .testimonial-text {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text);
+      margin-bottom: 28px;
+      font-style: italic;
+    }
+    .testimonial-author { display: flex; align-items: center; gap: 16px; }
+    .author-avatar {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700;
+      color: #000;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .author-name { font-weight: 600; font-size: 0.95rem; }
+    .author-role { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+
+    /* ── PRICING ── */
+    #pricing { background: var(--dark); }
+    .pricing-header { text-align: center; margin-bottom: 80px; }
+    .pricing-header .section-sub { margin: 0 auto; }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      align-items: start;
+    }
+    .pricing-card {
+      background: var(--dark3);
+      border: 1px solid rgba(201,168,76,0.1);
+      border-radius: 12px;
+      padding: 48px 36px;
+      transition: all 0.3s;
+      position: relative;
+    }
+    .pricing-card.featured {
+      border-color: var(--gold);
+      background: linear-gradient(135deg, var(--dark3), rgba(201,168,76,0.05));
+      transform: scale(1.04);
+      box-shadow: 0 20px 60px rgba(201,168,76,0.15);
+    }
+    .pricing-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: #000;
+      padding: 4px 20px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .pricing-tier {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .pricing-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .pricing-price span { font-size: 1.2rem; font-weight: 400; color: var(--text-muted); }
+    .pricing-desc { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 32px; line-height: 1.5; }
+    .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 36px; }
+    .pricing-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .pricing-features li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+    .btn-plan {
+      display: block;
+      text-align: center;
+      padding: 14px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      letter-spacing: 0.05em;
+    }
+    .btn-plan-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: #000;
+      box-shadow: 0 4px 20px rgba(201,168,76,0.3);
+    }
+    .btn-plan-primary:hover { box-shadow: 0 8px 30px rgba(201,168,76,0.5); transform: translateY(-2px); }
+    .btn-plan-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .btn-plan-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── CTA ── */
+    #contact {
+      background: var(--dark2);
+      text-align: center;
+    }
+    .cta-box {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--dark3);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 20px;
+      padding: 80px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-box .section-label { margin-bottom: 20px; }
+    .cta-box .section-title { margin-bottom: 20px; }
+    .cta-box p { color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; max-width: 500px; margin: 0 auto 48px; }
+    .cta-form { display: flex; gap: 12px; max-width: 500px; margin: 0 auto; flex-wrap: wrap; }
+    .cta-input {
+      flex: 1;
+      min-width: 200px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      padding: 14px 20px;
+      color: var(--white);
+      font-size: 0.95rem;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .cta-input::placeholder { color: var(--text-muted); }
+    .cta-input:focus { border-color: var(--gold); }
+    .cta-submit {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: #000;
+      padding: 14px 32px;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      transition: all 0.3s;
+      font-family: 'Inter', sans-serif;
+    }
+    .cta-submit:hover { box-shadow: 0 6px 25px rgba(201,168,76,0.5); transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      padding: 60px;
+      border-top: 1px solid rgba(201,168,76,0.1);
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .footer-logo span { color: var(--white); }
+    .footer-copy { font-size: 0.85rem; color: var(--text-muted); }
+    .footer-links { display: flex; gap: 32px; }
+    .footer-links a { font-size: 0.85rem; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── HAMBURGER (mobile) ── */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--text); transition: all 0.3s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      section { padding: 80px 24px; }
+      .process-layout { grid-template-columns: 1fr; gap: 60px; }
+      .process-visual { display: none; }
+      footer { padding: 40px 24px; }
+      .footer-inner { flex-direction: column; text-align: center; }
+      .cta-box { padding: 50px 28px; }
+      .pricing-card.featured { transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Grand<span>Agency</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#testimonials">Results</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get Started</a>
+  <div class="hamburger" id="hamburger" onclick="this.classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Award-Winning Grant Writers Since 2010</div>
+    <h1>We Write Grants That <em>Actually Get Funded</em></h1>
+    <p>Grand Agency is a premier grant writing firm helping nonprofits, startups, and institutions secure transformative funding. From federal grants to private foundations — we deliver results.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">
+        Get a Free Consultation
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#services" class="btn-secondary">Our Services ↓</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">$240M+</span>
+        <span class="stat-label">Funding Secured</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">87%</span>
+        <span class="stat-label">Success Rate</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">1,200+</span>
+        <span class="stat-label">Grants Written</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">14yrs</span>
+        <span class="stat-label">Experience</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="services-header reveal">
+      <div class="section-label">What We Do</div>
+      <h2 class="section-title">Full-Spectrum Grant Writing Services</h2>
+      <p class="section-sub">From research to submission, we handle every stage of the grant lifecycle so you can focus on your mission.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <span class="service-icon">🏛️</span>
+        <h3>Federal Grant Writing</h3>
+        <p>Expert navigation of complex federal funding streams including NIH, NSF, HUD, DOE, and more. We know the language agencies want to see.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">🤝</span>
+        <h3>Foundation & Corporate Grants</h3>
+        <p>Compelling proposals tailored to private foundations and corporate giving programs. We match you with the right funders for your cause.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">🔍</span>
+        <h3>Grant Research & Prospecting</h3>
+        <p>We identify funding opportunities you didn't know existed. Our database covers thousands of active grant programs across all sectors.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">📊</span>
+        <h3>Needs Assessments & Logic Models</h3>
+        <p>Data-driven narratives built on solid program logic. We build the case for your funding using real evidence and compelling storytelling.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">📋</span>
+        <h3>Grant Management & Reporting</h3>
+        <p>Winning the grant is just the start. We support ongoing compliance, reporting, and renewal so your funding continues to flow.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">🎯</span>
+        <h3>Capacity Building & Training</h3>
+        <p>Empower your team with grant writing skills through workshops and coaching programs tailored to your organization's needs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="container">
+    <div class="process-layout">
+      <div>
+        <div class="section-label reveal">How It Works</div>
+        <h2 class="section-title reveal">Our Proven Grant-Winning Process</h2>
+        <p class="section-sub reveal" style="margin-bottom:50px;">A systematic, research-backed approach developed over 14 years and 1,200+ successful grants.</p>
+        <div class="process-steps">
+          <div class="process-step reveal">
+            <div class="step-num">01</div>
+            <div class="step-body">
+              <h4>Discovery & Alignment</h4>
+              <p>We learn your mission, programs, and goals — then identify grant opportunities perfectly aligned with your work.</p>
+            </div>
+          </div>
+          <div class="process-step reveal">
+            <div class="step-num">02</div>
+            <div class="step-body">
+              <h4>Strategic Planning</h4>
+              <p>We build a funding calendar, prioritize high-probability grants, and create a tailored writing strategy.</p>
+            </div>
+          </div>
+          <div class="process-step reveal">
+            <div class="step-num">03</div>
+            <div class="step-body">
+              <h4>Proposal Development</h4>
+              <p>Our writers craft compelling, funder-specific narratives with strong data, clear logic models, and persuasive language.</p>
+            </div>
+          </div>
+          <div class="process-step reveal">
+            <div class="step-num">04</div>
+            <div class="step-body">
+              <h4>Review & Submission</h4>
+              <p>Every proposal is quality-reviewed before submission. We handle all portal submissions and follow up with funders.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="process-visual reveal">
+        <span class="big-icon">🏆</span>
+        <h3>Results You Can Count On</h3>
+        <p>Our clients consistently outperform national average grant success rates by 3x.</p>
+        <div class="success-rate">
+          <span class="rate">87%</span>
+          <div class="rate-label">Average success rate<br>across all submissions</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="container">
+    <div class="testimonials-header reveal">
+      <div class="section-label">Client Results</div>
+      <h2 class="section-title">Trusted by Organizations Nationwide</h2>
+      <p class="section-sub">Real clients, real funding, real impact.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"Grand Agency secured us $1.2M in federal funding within our first year working together. Their proposal quality is unlike anything we've seen from other firms."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">MJ</div>
+          <div>
+            <div class="author-name">Margaret Johnson</div>
+            <div class="author-role">Executive Director, Horizon Community Health</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"We went from a 20% grant success rate to over 80% in just one year with Grand Agency. Their strategic approach to funder alignment is exceptional."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">DT</div>
+          <div>
+            <div class="author-name">David Torres</div>
+            <div class="author-role">CEO, Future Scholars Foundation</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"The team at Grand Agency doesn't just write grants — they become true partners in your mission. They helped us secure NIH funding we never thought possible."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">SR</div>
+          <div>
+            <div class="author-name">Dr. Sarah Reynolds</div>
+            <div class="author-role">Research Director, BioAdvance Institute</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="container">
+    <div class="pricing-header reveal">
+      <div class="section-label">Investment</div>
+      <h2 class="section-title">Transparent, Results-Focused Pricing</h2>
+      <p class="section-sub">No surprises. Every plan includes dedicated writers, funder research, and unlimited revisions.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <div class="pricing-tier">Starter</div>
+        <div class="pricing-price">$1,500<span>/grant</span></div>
+        <p class="pricing-desc">Perfect for small nonprofits submitting 1–3 grants per quarter.</p>
+        <ul class="pricing-features">
+          <li>1 grant proposal per month</li>
+          <li>Funder research & matching</li>
+          <li>2 rounds of revisions</li>
+          <li>Submission support</li>
+          <li>Email support</li>
+        </ul>
+        <a href="#contact" class="btn-plan btn-plan-secondary">Get Started</a>
+      </div>
+      <div class="pricing-card featured reveal">
+        <div class="pricing-badge">Most Popular</div>
+        <div class="pricing-tier">Growth</div>
+        <div class="pricing-price">$3,800<span>/mo</span></div>
+        <p class="pricing-desc">For growing organizations ready to scale their funding pipeline.</p>
+        <ul class="pricing-features">
+          <li>Up to 4 proposals per month</li>
+          <li>Priority funder prospecting</li>
+          <li>Unlimited revisions</li>
+          <li>Logic model development</li>
+          <li>Grant calendar management</li>
+          <li>Dedicated account manager</li>
+        </ul>
+        <a href="#contact" class="btn-plan btn-plan-primary">Start Growing</a>
+      </div>
+      <div class="pricing-card reveal">
+        <div class="pricing-tier">Enterprise</div>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-desc">For large institutions with high-volume grant needs and federal complexity.</p>
+        <ul class="pricing-features">
+          <li>Unlimited proposals</li>
+          <li>Federal grant specialization</li>
+          <li>Full program development</li>
+          <li>Compliance & reporting</li>
+          <li>Staff training & workshops</li>
+          <li>24/7 priority support</li>
+        </ul>
+        <a href="#contact" class="btn-plan btn-plan-secondary">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="cta-box reveal">
+      <div class="section-label">Free Consultation</div>
+      <h2 class="section-title">Ready to Unlock Your Funding Potential?</h2>
+      <p>Tell us about your organization and funding goals. We'll identify the best grant opportunities and build a strategy to win them.</p>
+      <form class="cta-form" onsubmit="handleSubmit(event)">
+        <input type="email" class="cta-input" id="email-input" placeholder="Enter your email address" required />
+        <button type="submit" class="cta-submit">Get Free Consultation</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a href="#" class="footer-logo">Grand<span>Agency</span></a>
+    <div class="footer-links">
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#testimonials">Results</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <p class="footer-copy">© 2024 Grand Agency. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Navbar scroll effect
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    nav.style.background = window.scrollY > 50
+      ? 'rgba(10,10,15,0.98)'
+      : 'rgba(10,10,15,0.85)';
+  });
+
+  // Form submit
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.cta-submit');
+    btn.textContent = '✓ We\'ll be in touch!';
+    btn.style.background = 'linear-gradient(135deg, #4CAF50, #2E7D32)';
+    setTimeout(() => {
+      btn.textContent = 'Get Free Consultation';
+      btn.style.background = '';
+      document.getElementById('email-input').value = '';
+    }, 3000);
+  }
+
+  // Smooth counter animation
+  function animateCounter(el, target, suffix) {
+    let current = 0;
+    const increment = target / 60;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
+      }
+      el.textContent = suffix === '$' ? '$' + Math.floor(current) + 'M+' : Math.floor(current) + (suffix || '');
+    }, 16);
+  }
+</script>
+</body>
+</html>
