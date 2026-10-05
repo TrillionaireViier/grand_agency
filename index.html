@@ -601,9 +601,10 @@
       .cta-box { padding: 50px 28px; }
       .pricing-card.featured { transform: none; }
     }
-    #google_translate_element select { background: var(--dark3); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.15); padding: 4px; border-radius: 4px; outline: none; font-size: 0.85rem; }
-    .goog-te-banner-frame { display: none !important; }
-    body { top: 0px !important; }
+    .lang-switch { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 0.85rem; }
+    .lang-switch a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .lang-switch a.active { color: var(--gold); }
+    .lang-switch a:hover { color: var(--white); }
   </style>
 </head>
 <body>
@@ -616,7 +617,11 @@
     <li><a href="#process">Process</a></li>
     <li><a href="#testimonials">Results</a></li>
     <li><a href="#pricing">Pricing</a></li>
-    <li id="google_translate_element" style="display:flex;align-items:center;"></li>
+    <li class="lang-switch">
+      <a href="#" onclick="toggleLang(event, 'en')" data-lang="en" class="active">EN</a>
+      <span style="color:rgba(255,255,255,0.2)">|</span>
+      <a href="#" onclick="toggleLang(event, 'uk')" data-lang="uk">UA</a>
+    </li>
   </ul>
   <a href="#contact" class="nav-cta">Get Started</a>
   <div class="hamburger" id="hamburger" onclick="this.classList.toggle('open')">
@@ -934,10 +939,154 @@
     }, 16);
   }
 
-  function googleTranslateElementInit() {
-    new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,uk', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+  // Native Translation Dictionary
+  const ukTranslations = {
+    "Services": "Послуги",
+    "Process": "Процес",
+    "Results": "Результати",
+    "Pricing": "Ціни",
+    "Get Started": "Почати",
+    "Award-Winning Grant Writers Since 2010": "Грантрайтери з нагородами з 2010 року",
+    "We Write Grants That": "Ми пишемо гранти, які",
+    "Actually Get Funded": "Дійсно отримують фінансування",
+    "Grand Agency is a premier grant writing firm helping nonprofits, startups, and institutions secure transformative funding. From federal grants to private foundations — we deliver results.": "Grand Agency — провідна компанія з написання грантів, що допомагає некомерційним організаціям, стартапам та установам отримувати фінансування. Від федеральних грантів до приватних фондів — ми забезпечуємо результати.",
+    "Get a Free Consultation": "Отримати безкоштовну консультацію",
+    "Our Services ↓": "Наші послуги ↓",
+    "Funding Secured": "Залучено фінансування",
+    "Success Rate": "Рівень успіху",
+    "Grants Written": "Написано грантів",
+    "Experience": "Досвіду",
+    "What We Do": "Що ми робимо",
+    "Full-Spectrum Grant Writing Services": "Повний спектр послуг з написання грантів",
+    "From research to submission, we handle every stage of the grant lifecycle so you can focus on your mission.": "Від дослідження до подачі, ми супроводжуємо кожен етап життєвого циклу гранту, щоб ви могли зосередитися на своїй місії.",
+    "Federal Grant Writing": "Написання федеральних грантів",
+    "Expert navigation of complex federal funding streams including NIH, NSF, HUD, DOE, and more. We know the language agencies want to see.": "Експертна навігація складними федеральними програмами фінансування, включаючи NIH, NSF, HUD, DOE тощо.",
+    "Foundation & Corporate Grants": "Фондові та корпоративні гранти",
+    "Compelling proposals tailored to private foundations and corporate giving programs. We match you with the right funders for your cause.": "Переконливі пропозиції, адаптовані для приватних фондів та корпоративних програм. Ми підберемо правильних спонсорів для вашої справи.",
+    "Grant Research & Prospecting": "Пошук та дослідження грантів",
+    "We identify funding opportunities you didn't know existed. Our database covers thousands of active grant programs across all sectors.": "Ми знаходимо можливості фінансування, про які ви не знали. Наша база даних охоплює тисячі активних грантових програм.",
+    "Needs Assessments & Logic Models": "Оцінка потреб та логічні моделі",
+    "Data-driven narratives built on solid program logic. We build the case for your funding using real evidence and compelling storytelling.": "Сюжети на основі даних і надійної логіки програми. Ми обґрунтовуємо ваше фінансування за допомогою реальних доказів.",
+    "Grant Management & Reporting": "Управління грантами та звітність",
+    "Winning the grant is just the start. We support ongoing compliance, reporting, and renewal so your funding continues to flow.": "Отримання гранту — це лише початок. Ми підтримуємо відповідність, звітність та поновлення, щоб фінансування продовжувалося.",
+    "Capacity Building & Training": "Навчання та розвиток потенціалу",
+    "Empower your team with grant writing skills through workshops and coaching programs tailored to your organization's needs.": "Надайте своїй команді навички написання грантів через семінари та програми коучингу, адаптовані до потреб вашої організації.",
+    "How It Works": "Як це працює",
+    "Our Proven Grant-Winning Process": "Наш перевірений процес отримання грантів",
+    "A systematic, research-backed approach developed over 14 years and 1,200+ successful grants.": "Систематичний підхід, розроблений за 14 років та понад 1200 успішних грантів.",
+    "Discovery & Alignment": "Дослідження та узгодження",
+    "We learn your mission, programs, and goals — then identify grant opportunities perfectly aligned with your work.": "Ми вивчаємо вашу місію, програми та цілі, щоб знайти можливості грантів, які ідеально відповідають вашій роботі.",
+    "Strategic Planning": "Стратегічне планування",
+    "We build a funding calendar, prioritize high-probability grants, and create a tailored writing strategy.": "Ми створюємо календар фінансування, визначаємо пріоритетні гранти та розробляємо індивідуальну стратегію написання.",
+    "Proposal Development": "Розробка пропозиції",
+    "Our writers craft compelling, funder-specific narratives with strong data, clear logic models, and persuasive language.": "Наші автори створюють переконливі наративи, орієнтовані на спонсорів, із сильними даними, чіткими логічними моделями та переконливою мовою.",
+    "Review & Submission": "Перевірка та подача",
+    "Every proposal is quality-reviewed before submission. We handle all portal submissions and follow up with funders.": "Кожна пропозиція проходить перевірку якості перед подачею. Ми обробляємо всі подання на порталах і підтримуємо зв'язок зі спонсорами.",
+    "Results You Can Count On": "Результати, на які можна покластися",
+    "Our clients consistently outperform national average grant success rates by 3x.": "Наші клієнти стабільно перевершують середній національний показник успішності грантів у 3 рази.",
+    "Average success rate": "Середній рівень успіху",
+    "across all submissions": "для всіх заявок",
+    "Client Results": "Результати клієнтів",
+    "Trusted by Organizations Nationwide": "Нам довіряють організації по всій країні",
+    "Real clients, real funding, real impact.": "Реальні клієнти, реальне фінансування, реальний вплив.",
+    "Investment": "Інвестиції",
+    "Transparent, Results-Focused Pricing": "Прозоре ціноутворення, орієнтоване на результат",
+    "No surprises. Every plan includes dedicated writers, funder research, and unlimited revisions.": "Жодних сюрпризів. Кожен план включає виділених авторів, дослідження фондів та необмежені ревізії.",
+    "Starter": "Стартовий",
+    "Perfect for small nonprofits submitting 1–3 grants per quarter.": "Ідеально для невеликих організацій, що подають 1-3 гранти на квартал.",
+    "1 grant proposal per month": "1 грантова пропозиція на місяць",
+    "Funder research & matching": "Дослідження та підбір фондів",
+    "2 rounds of revisions": "2 раунди ревізій",
+    "Submission support": "Підтримка подачі",
+    "Email support": "Email підтримка",
+    "Most Popular": "Найпопулярніший",
+    "Growth": "Розвиток",
+    "For growing organizations ready to scale their funding pipeline.": "Для організацій, які готові масштабувати своє фінансування.",
+    "Up to 4 proposals per month": "До 4 пропозицій на місяць",
+    "Priority funder prospecting": "Пріоритетний пошук фондів",
+    "Unlimited revisions": "Необмежені ревізії",
+    "Logic model development": "Розробка логічної моделі",
+    "Grant calendar management": "Управління грантовим календарем",
+    "Dedicated account manager": "Особистий менеджер",
+    "Start Growing": "Почати розвиток",
+    "Enterprise": "Корпоративний",
+    "Custom": "Індивідуально",
+    "For large institutions with high-volume grant needs and federal complexity.": "Для великих установ із значними потребами в грантах.",
+    "Unlimited proposals": "Необмежені пропозиції",
+    "Federal grant specialization": "Спеціалізація на федеральних грантах",
+    "Full program development": "Повна розробка програми",
+    "Compliance & reporting": "Відповідність та звітність",
+    "Staff training & workshops": "Навчання персоналу та семінари",
+    "24/7 priority support": "Пріоритетна підтримка 24/7",
+    "Contact Us": "Зв'яжіться з нами",
+    "Free Consultation": "Безкоштовна консультація",
+    "Ready to Unlock Your Funding Potential?": "Готові розкрити свій потенціал фінансування?",
+    "Tell us about your organization and funding goals. We'll identify the best grant opportunities and build a strategy to win them.": "Розкажіть нам про вашу організацію та цілі фінансування. Ми знайдемо найкращі грантові можливості та розробимо стратегію для перемоги.",
+    "Contact": "Контакти",
+    "© 2024 Grand Agency. All rights reserved.": "© 2024 Grand Agency. Всі права захищено."
+  };
+
+  function traverseAndTranslate(node, lang) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const text = node.nodeValue.trim();
+      if (!text) return;
+      
+      // Quotes in testimonials bypass
+      let lookupText = text;
+      if (lookupText.startsWith('"') && lookupText.endsWith('"')) {
+        lookupText = lookupText.substring(1, lookupText.length - 1);
+      }
+
+      if (!node.parentElement.dataset.en) {
+        node.parentElement.dataset.en = text;
+      }
+      
+      let enText = node.parentElement.dataset.en;
+      
+      let cleanEnText = enText;
+      let hasQuotes = cleanEnText.startsWith('"') && cleanEnText.endsWith('"');
+      if (hasQuotes) cleanEnText = cleanEnText.substring(1, cleanEnText.length - 1);
+
+      if (lang === 'uk' && ukTranslations[cleanEnText]) {
+        let translated = ukTranslations[cleanEnText];
+        if (hasQuotes) translated = '"' + translated + '"';
+        node.nodeValue = node.nodeValue.replace(text, translated);
+      } else if (lang === 'en' && enText) {
+        node.nodeValue = node.nodeValue.replace(text, enText);
+      }
+    } else {
+      for (const child of node.childNodes) {
+        if (child.tagName !== 'SCRIPT' && child.tagName !== 'STYLE') {
+          traverseAndTranslate(child, lang);
+        }
+      }
+    }
+  }
+
+  function toggleLang(e, lang) {
+    if (e) e.preventDefault();
+    document.querySelectorAll('.lang-switch a').forEach(a => a.classList.remove('active'));
+    document.querySelector(`.lang-switch a[data-lang="${lang}"]`).classList.add('active');
+    
+    // Add extra missing translations dynamically
+    ukTranslations["Grand Agency secured us $1.2M in federal funding within our first year working together. Their proposal quality is unlike anything we've seen from other firms."] = "Grand Agency забезпечила нам $1.2M федерального фінансування протягом першого року співпраці. Якість їхніх пропозицій не схожа ні на що інше.";
+    ukTranslations["We went from a 20% grant success rate to over 80% in just one year with Grand Agency. Their strategic approach to funder alignment is exceptional."] = "Ми піднялися з 20% успішності грантів до понад 80% всього за один рік завдяки Grand Agency. Їхній стратегічний підхід є винятковим.";
+    ukTranslations["The team at Grand Agency doesn't just write grants — they become true partners in your mission. They helped us secure NIH funding we never thought possible."] = "Команда Grand Agency не просто пише гранти — вони стають справжніми партнерами у вашій місії. Вони допомогли нам отримати фінансування NIH.";
+    ukTranslations["Executive Director, Horizon Community Health"] = "Виконавчий директор, Horizon Community Health";
+    ukTranslations["CEO, Future Scholars Foundation"] = "Генеральний директор, Future Scholars Foundation";
+    ukTranslations["Research Director, BioAdvance Institute"] = "Директор з досліджень, BioAdvance Institute";
+    ukTranslations["Margaret Johnson"] = "Маргарет Джонсон";
+    ukTranslations["David Torres"] = "Девід Торрес";
+    ukTranslations["Dr. Sarah Reynolds"] = "Д-р Сара Рейнольдс";
+
+    traverseAndTranslate(document.body, lang);
+    
+    const emailInput = document.getElementById('email-input');
+    if (emailInput) {
+      if (!emailInput.dataset.enPlaceholder) emailInput.dataset.enPlaceholder = emailInput.placeholder;
+      emailInput.placeholder = lang === 'uk' ? "Введіть вашу email адресу" : emailInput.dataset.enPlaceholder;
+    }
   }
 </script>
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
